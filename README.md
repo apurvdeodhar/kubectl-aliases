@@ -39,9 +39,10 @@ See [the full list](.kubectl_aliases).
 
 ### Installation
 
-You can directly download the [`.kubectl_aliases` file](https://raw.githubusercontent.com/ahmetb/kubectl-aliases/master/.kubectl_aliases)
-for bash/zsh or the [`.kubectl_aliases.fish` file](https://raw.githubusercontent.com/ahmetb/kubectl-aliases/master/.kubectl_aliases.fish)
-for fish and save it to your `$HOME` directory.
+- You can run [the script](generate_aliases.py) which will generate aliases in `.kubectl_aliases.bak` file.
+- Rename `.kubectl_aliases.bak` to `.kubectl_aliases` and save it to your `$HOME` directory.
+- For bash/zsh or the `.kubectl_aliases.fish` file just rename and change the extension to `.fish`
+
 
 #### Bash/Zsh
 
@@ -95,8 +96,8 @@ instead of aliases, so that pressing space shows the full command before executi
   * **`ex`**: `exec -i -t`
   * **`lo`**: `logs -f`
 * resources:
-  * **`po`**=pod, **`dep`**=`deployment`, **`ing`**=`ingress`,
-    **`svc`**=`service`, **`cm`**=`configmap`, **`sec`**=`secret`,
+  * **`po`**=pod, **`dep`**=`deployment`, **`ing`**=`ingress`, **`rs`**=`replicaset`,
+    **`svc`**=`service`, **`cm`**=`configmap`, **`sec`**=`secret`, **`sa`**=`serviceaccount`,
     **`ns`**=`namespace`, **`no`**=`node`
     **:warning: Please do not suggest new resources here, instead fork the project.**
 * flags:
@@ -115,7 +116,7 @@ The script has only one optional argument, the shell to which the aliases will b
 
 ```bash
 # Generate aliases for bash/zsh
-python generate_aliases.py > .kubectl_aliases
+python generate_aliases.py
 
 # Generate abbr for fish
 python generate_aliases.py fish > .kubectl_aliases.fish

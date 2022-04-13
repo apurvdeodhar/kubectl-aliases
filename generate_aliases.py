@@ -55,6 +55,8 @@ def main():
         ('ing', 'ingress', ['g', 'd', 'rm'], None),
         ('cm', 'configmap', ['g', 'd', 'rm'], None),
         ('sec', 'secret', ['g', 'd', 'rm'], None),
+        ('sa', 'serviceaccount', ['g', 'd', 'rm'], None),
+        ('rs', 'replicaset', ['g', 'd', 'rm'], None),
         ('no', 'nodes', ['g', 'd'], ['sys']),
         ('ns', 'namespaces', ['g', 'd', 'rm'], ['sys']),
         ]
@@ -98,8 +100,8 @@ def main():
         raise ValueError("Shell \"{}\" not supported. Options are {}"
                         .format(shell, [key for key in shellFormatting]))
 
-    out = gen(parts)
 
+    out = gen(parts)
     # prepare output
     if not sys.stdout.isatty():
         header_path = \
@@ -108,9 +110,14 @@ def main():
         with open(header_path, 'r') as f:
             print(f.read())
 
-    for cmd in out:
-        print(shellFormatting[shell].format(''.join([a[0] for a in cmd]),
-              ' '.join([a[1] for a in cmd])))
+    with open('.kubectl_aliases.bak', 'w') as f:
+      for cmd in out:
+          f.write(shellFormatting[shell].format(''.join([a[0] for a in cmd]),
+                ' '.join([a[1] for a in cmd])))
+          f.write('\n')
+
+          # print(shellFormatting[shell].format(''.join([a[0] for a in cmd]),
+          #       ' '.join([a[1] for a in cmd])))
 
 
 def gen(parts):
